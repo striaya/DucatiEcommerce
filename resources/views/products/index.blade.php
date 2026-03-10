@@ -21,7 +21,6 @@
         margin-top: 8px;
     }
 
-    /* FILTER BAR */
     .filter-bar {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -70,7 +69,6 @@
     }
     .filter-actions { display: flex; gap: 8px; align-items: flex-end; margin-left: auto; }
 
-    /* PRODUCT GRID */
     .product-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -183,7 +181,6 @@
     }
     .product-badges { display: flex; gap: 6px; flex-wrap: wrap; }
 
-    /* EMPTY */
     .empty-state {
         text-align: center;
         padding: 80px 0;
@@ -198,7 +195,6 @@
         margin-bottom: 8px;
     }
 
-    /* PAGINATION */
     .pagination-wrap {
         margin-top: 40px;
         display: flex;
@@ -222,7 +218,6 @@
     @endauth
 </div>
 
-{{-- FILTER --}}
 <form method="GET" action="/products" class="filter-bar">
     <div class="filter-group">
         <span class="filter-label">Kategori</span>
@@ -261,7 +256,6 @@
     </div>
 </form>
 
-{{-- GRID --}}
 @if($products->isEmpty())
     <div class="empty-state">
         <i class="fa-solid fa-magnifying-glass"></i>

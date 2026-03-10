@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     
-    protected $primaryKey = 'user_id';
+    // protected $primaryKey = 'user_id';
 
     protected $fillable = [
         'full_name',
@@ -33,6 +33,11 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
     ];
 
+      public function getAuthPassword(): string
+    {
+        return $this->password_hash;
+    }
+    
     public function addresses(): HasMany
     {
         return $this->hasMany(UserAddress::class, 'user_id', 'user_id');
