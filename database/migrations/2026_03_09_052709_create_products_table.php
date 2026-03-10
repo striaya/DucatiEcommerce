@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id('product_id');
-            $table->unsignedBigInteger('category_id');
+            $table->id();
+            $table->foreignId('category_id')->constrained('categories')->onDelete('restrict');
             $table->string('name', 200);
             $table->string('slug', 220)->unique();
             $table->text('description')->nullable();
@@ -22,14 +22,9 @@ return new class extends Migration
             $table->text('image_url')->nullable();
             $table->integer('engine_cc')->nullable()->comment('Kapasitas mesin (cc)');
             $table->decimal('power_hp', 6, 1)->nullable()->comment('Tenaga mesin (HP)');
-            $table->boolean('credit_eligible')->default(false)->comment('Bisa dibeli kredit');
+            $table->boolean('credit_eligible')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-
-            $table->foreign('category_id')
-                  ->references('category_id')
-                  ->on('categories')
-                  ->onDelete('restrict');
         });
     }
 

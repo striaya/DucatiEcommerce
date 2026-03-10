@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_addresses', function (Blueprint $table) {
-            $table->id('address_id');
-            $table->unsignedBigInteger('user_id');
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('label', 50)->default('Rumah');
             $table->string('recipient_name', 100);
             $table->text('street');
@@ -22,11 +22,6 @@ return new class extends Migration
             $table->string('postal_code', 10);
             $table->boolean('is_default')->default(false);
             $table->timestamps();
-
-            $table->foreign('user_id')
-            ->references('user_id')
-            ->on('users')
-            ->onDelete('cascade');
         });
     }
 

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('order_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('address_id');
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
+            $table->foreignId('address_id')->constrained('user_addresses')->onDelete('restrict');
             $table->string('order_number', 30)->unique();
             $table->enum('purchase_type', ['cash', 'credit'])->default('cash');
             $table->enum('status', [
@@ -22,22 +22,12 @@ return new class extends Migration
                 'confirmed',
                 'shipped',
                 'delivered',
-                'cancelled'
+                'cancelled',
             ])->default('pending');
             $table->decimal('subtotal', 14, 2);
             $table->decimal('grand_total', 14, 2);
             $table->timestamp('ordered_at')->useCurrent();
             $table->timestamps();
-
-            $table->foreign('user_id')
-                  ->references('user_id')
-                  ->on('users')
-                  ->onDelete('restrict');
-
-            $table->foreign('address_id')
-                  ->references('address_id')
-                  ->on('user_addresses')
-                  ->onDelete('restrict');
         });
     }
 

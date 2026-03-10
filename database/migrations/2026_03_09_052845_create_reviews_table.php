@@ -12,30 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->id('review_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('order_id');
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->tinyInteger('rating')->unsigned()->comment('Nilai 1 sampai 5');
             $table->string('title', 150)->nullable();
             $table->text('body')->nullable();
-            $table->boolean('is_verified')->default(false)->comment('True jika sudah beli produk ini');
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
-
-            $table->foreign('user_id')
-                  ->references('user_id')
-                  ->on('users')
-                  ->onDelete('cascade');
-
-            $table->foreign('product_id')
-                  ->references('product_id')
-                  ->on('products')
-                  ->onDelete('cascade');
-
-            $table->foreign('order_id')
-                  ->references('order_id')
-                  ->on('orders')
-                  ->onDelete('cascade');
 
             $table->unique(['user_id', 'product_id', 'order_id']);
         });
