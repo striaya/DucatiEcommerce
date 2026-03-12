@@ -60,7 +60,15 @@ class OrderController extends Controller
             return redirect('/cart')->with('error', 'Keranjang kamu kosong.');
         }
 
+        if ($request->purchase_type === 'credit') {
+            $notEligible = $cartItems->filter(fn($item) => !$item->product->credit_eligible);
+            if ($notEligible->isNotEmpty()) {
+                return back()->with('error', 'Produk "' . $notEligible->first()->product->name . '" tidak tersedia untuk pembelian kredit.');
+            }
+        }
+
         DB::beginTransaction();
+
         try {
             $subtotal = 0;
 

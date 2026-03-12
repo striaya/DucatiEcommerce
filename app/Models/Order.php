@@ -29,32 +29,32 @@ class Order extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function address(): BelongsTo
     {
-        return $this->belongsTo(UserAddress::class, 'address_id');
+        return $this->belongsTo(UserAddress::class);
     }
 
     public function items(): HasMany
     {
-        return $this->hasMany(OrderItem::class, 'order_id', 'order_id');
+        return $this->hasMany(OrderItem::class);
     }
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class, 'order_id', 'order_id');
+        return $this->hasMany(Payment::class);
     }
 
     public function creditApplication(): HasOne
     {
-        return $this->hasOne(CreditApplication::class, 'order_id', 'order_id');
+        return $this->hasOne(CreditApplication::class);
     }
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class, 'order_id', 'order_id');
+        return $this->hasMany(Review::class);
     }
 
     public function isCredit(): bool

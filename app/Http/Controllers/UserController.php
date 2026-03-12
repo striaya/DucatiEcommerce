@@ -69,9 +69,25 @@ class UserController extends Controller
         return back()->with('success', 'Alamat dihapus.');
     }
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $users = User::withCount(['orders', 'creditApplications'])->latest()->paginate(20);
+        $query = User::withCount(['orders', 'creditApplications']);
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('full_name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+        if ($request->filled('kyc_status')) {
+            $query->where('kyc_status', $request->kyc_status);
+        }
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->latest()->paginate(20);
+
         return view('admin.users.index', compact('users'));
     }
 

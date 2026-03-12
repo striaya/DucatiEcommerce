@@ -12,18 +12,18 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,product_id',
-            'order_id'   => 'required|exists:orders,order_id',
+            'product_id' => 'required|exists:products,id',
+            'order_id'   => 'required|exists:orders,id',
             'rating'     => 'required|integer|min:1|max:5',
             'title'      => 'nullable|string|max:150',
             'body'       => 'nullable|string',
         ]);
 
-        $hasBought = Order::where('order_id', $request->order_id)
-                          ->where('user_id', Auth::id())
-                          ->where('status', 'delivered')
-                          ->whereHas('items', fn($q) => $q->where('product_id', $request->product_id))
-                          ->exists();
+        $hasBought = Order::where('id', $request->order_id)
+            ->where('user_id', Auth::id())
+            ->where('status', 'delivered')
+            ->whereHas('items', fn($q) => $q->where('product_id', $request->product_id))
+            ->exists();
 
         $alreadyReviewed = Review::where([
             'user_id'    => Auth::id(),

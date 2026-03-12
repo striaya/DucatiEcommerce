@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class CreditApplication extends Model
 {
 
@@ -38,17 +39,17 @@ class CreditApplication extends Model
 
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'order_id', 'order_id');
+        return $this->belongsTo(Order::class);
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function installmentSchedules(): HasMany
     {
-        return $this->hasMany(InstallmentSchedule::class, 'credit_id', 'credit_id');
+        return $this->hasMany(InstallmentSchedule::class, 'credit_id');
     }
 
     public function isApproved(): bool
@@ -82,7 +83,7 @@ class CreditApplication extends Model
 
         for ($i = 1; $i <= $this->tenure_months; $i++) {
             $schedules[] = [
-                'credit_id'     => $this->credit_id,
+                'credit_id'     => $this->id,
                 'period_number' => $i,
                 'due_date'      => $dueDate->copy()->format('Y-m-d'),
                 'amount_due'    => $this->monthly_installment,

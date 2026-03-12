@@ -51,10 +51,24 @@ class ProductController extends Controller
         return view('products.show', compact('product', 'avgRating', 'related'));
     }
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $products = Product::with('category')->latest()->paginate(20);
-        return view('admin.products.index', compact('products'));
+        $query = Product::with('category');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
+        }
+
+        $products   = $query->latest()->paginate(20);
+        $categories = Category::active()->get();
+
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function create()
@@ -65,26 +79,33 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'category_id'     => 'required|exists:categories,category_id',
+        $request->validate([
             'name'            => 'required|string|max:200',
-            'description'     => 'nullable|string',
+            'category_id'     => 'required|exists:categories,id',
             'price'           => 'required|numeric|min:0',
             'stock'           => 'required|integer|min:0',
-            'image_url'       => 'nullable|url',
+            'slug'            => 'nullable|string|unique:products,slug',
             'engine_cc'       => 'nullable|integer',
             'power_hp'        => 'nullable|numeric',
             'credit_eligible' => 'boolean',
             'is_active'       => 'boolean',
         ]);
 
-        $validated['slug']            = Str::slug($validated['name']) . '-' . Str::random(5);
-        $validated['credit_eligible'] = $request->has('credit_eligible');
-        $validated['is_active']       = $request->has('is_active');
+        Product::create($request->only([
+            'name',
+            'slug',
+            'category_id',
+            'description',
+            'price',
+            'stock',
+            'image_url',
+            'engine_cc',
+            'power_hp',
+            'credit_eligible',
+            'is_active'
+        ]));
 
-        Product::create($validated);
-
-        return redirect('/admin/products')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect('/admin/products')->with('success', 'Motor berhasil ditambahkan.');
     }
 
     public function edit(int $id)
@@ -96,33 +117,35 @@ class ProductController extends Controller
 
     public function update(Request $request, int $id)
     {
-        $product   = Product::findOrFail($id);
-        $validated = $request->validate([
-            'category_id'     => 'required|exists:categories,category_id',
-            'name'            => 'required|string|max:200',
-            'description'     => 'nullable|string',
-            'price'           => 'required|numeric|min:0',
-            'stock'           => 'required|integer|min:0',
-            'image_url'       => 'nullable|url',
-            'engine_cc'       => 'nullable|integer',
-            'power_hp'        => 'nullable|numeric',
-            'credit_eligible' => 'boolean',
-            'is_active'       => 'boolean',
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'name'        => 'required|string|max:200',
+            'category_id' => 'required|exists:categories,id',
+            'price'       => 'required|numeric|min:0',
+            'stock'       => 'required|integer|min:0',
         ]);
 
-        $validated['credit_eligible'] = $request->has('credit_eligible');
-        $validated['is_active']       = $request->has('is_active');
+        $product->update($request->only([
+            'name',
+            'slug',
+            'category_id',
+            'description',
+            'price',
+            'stock',
+            'image_url',
+            'engine_cc',
+            'power_hp',
+            'credit_eligible',
+            'is_active'
+        ]));
 
-        $product->update($validated);
-
-        return redirect('/admin/products')->with('success', 'Produk berhasil diperbarui.');
+        return redirect('/admin/products')->with('success', 'Motor berhasil diperbarui.');
     }
 
     public function destroy(int $id)
     {
-        $product = Product::findOrFail($id);
-        $product->update(['is_active' => false]);
-
-        return redirect('/admin/products')->with('success', 'Produk dinonaktifkan.');
+        Product::findOrFail($id)->delete();
+        return redirect('/admin/products')->with('success', 'Motor berhasil dihapus.');
     }
 }
