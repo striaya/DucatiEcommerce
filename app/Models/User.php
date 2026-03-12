@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-    
+
     // protected $primaryKey = 'user_id';
 
     protected $fillable = [
@@ -33,34 +33,34 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
     ];
 
-      public function getAuthPassword(): string
+    public function getAuthPassword(): string
     {
         return $this->password_hash;
     }
-    
+
     public function addresses(): HasMany
     {
-        return $this->hasMany(UserAddress::class, 'user_id', 'user_id');
+        return $this->hasMany(UserAddress::class);
     }
 
     public function carts(): HasMany
     {
-        return $this->hasMany(Cart::class, 'user_id', 'user_id');
+        return $this->hasMany(Cart::class);
     }
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'user_id', 'user_id');
+        return $this->hasMany(Order::class);
     }
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class, 'user_id', 'user_id');
+        return $this->hasMany(Review::class);
     }
 
     public function creditApplications(): HasMany
     {
-        return $this->hasMany(CreditApplication::class, 'user_id', 'user_id');
+        return $this->hasMany(CreditApplication::class);
     }
 
     public function isAdmin(): bool

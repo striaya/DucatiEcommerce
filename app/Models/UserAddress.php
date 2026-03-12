@@ -26,12 +26,12 @@ class UserAddress extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'address_id', 'address_id');
+        return $this->hasMany(Order::class, 'address_id');
     }
 
     public function getFullAddressAttribute(): string
