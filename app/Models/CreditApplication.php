@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class CreditApplication extends Model
 {
-    protected $primaryKey = 'credit_id';
 
     protected $fillable = [
         'order_id',

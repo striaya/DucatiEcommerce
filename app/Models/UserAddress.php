@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserAddress extends Model
 {
-    protected $primaryKey = 'address_id';
 
     protected $fillable = [
         'user_id',

@@ -15,9 +15,9 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::where('user_id', Auth::id())
-                       ->with(['items.product', 'payments'])
-                       ->latest('ordered_at')
-                       ->paginate(10);
+            ->with(['items.product', 'payments'])
+            ->latest('ordered_at')
+            ->paginate(10);
 
         return view('orders.index', compact('orders'));
     }
@@ -25,8 +25,8 @@ class OrderController extends Controller
     public function show(int $id)
     {
         $order = Order::where('user_id', Auth::id())
-                      ->with(['items.product', 'payments', 'address', 'creditApplication.installmentSchedules'])
-                      ->findOrFail($id);
+            ->with(['items.product', 'payments', 'address', 'creditApplication.installmentSchedules'])
+            ->findOrFail($id);
 
         return view('orders.show', compact('order'));
     }
@@ -34,8 +34,8 @@ class OrderController extends Controller
     public function checkout()
     {
         $cartItems = Cart::where('user_id', Auth::id())
-                         ->with('product')
-                         ->get();
+            ->with('product')
+            ->get();
 
         if ($cartItems->isEmpty()) {
             return redirect('/cart')->with('error', 'Keranjang kamu kosong.');
@@ -50,7 +50,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'address_id'    => 'required|exists:user_addresses,address_id',
+            'address_id'    => 'required|exists:user_addresses,id',
             'purchase_type' => 'required|in:cash,credit',
         ]);
 
@@ -84,7 +84,7 @@ class OrderController extends Controller
 
             foreach ($cartItems as $item) {
                 OrderItem::create([
-                    'order_id'     => $order->order_id,
+                    'order_id'     => $order->id,
                     'product_id'   => $item->product_id,
                     'product_name' => $item->product->name,
                     'quantity'     => $item->quantity,
@@ -100,13 +100,11 @@ class OrderController extends Controller
             DB::commit();
 
             if ($request->purchase_type === 'cash') {
-                return redirect("/orders/{$order->order_id}/payment")
-                       ->with('success', 'Order berhasil! Silakan lanjutkan pembayaran.');
+                return redirect("/orders/{$order->id}/payment")->with('success', 'Order berhasil! Silakan lanjutkan pembayaran.');
             }
 
-            return redirect("/orders/{$order->order_id}/credit")
-                   ->with('success', 'Order berhasil! Silakan ajukan kredit.');
-
+            return redirect("/orders/{$order->id}/credit")
+                ->with('success', 'Order berhasil! Silakan ajukan kredit.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Gagal membuat order: ' . $e->getMessage());
@@ -132,7 +130,7 @@ class OrderController extends Controller
     public function adminShow(int $id)
     {
         $order = Order::with(['user', 'items.product', 'payments', 'address', 'creditApplication'])
-                      ->findOrFail($id);
+            ->findOrFail($id);
 
         return view('admin.orders.show', compact('order'));
     }

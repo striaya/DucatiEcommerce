@@ -25,7 +25,7 @@ class UserController extends Controller
         $request->validate([
             'full_name' => 'required|string|max:100',
             'phone'     => 'nullable|string|max:20',
-            'nik'       => 'nullable|string|size:16|unique:users,nik,' . $user->user_id . ',user_id',
+            'nik' => 'nullable|string|size:16|unique:users,nik,' . $user->id,
         ]);
 
         $user->update($request->only('full_name', 'phone', 'nik'));

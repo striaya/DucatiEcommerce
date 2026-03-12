@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    protected $primaryKey = 'product_id';
 
     protected $fillable = [
         'category_id',
@@ -34,24 +33,23 @@ class Product extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+        return $this->belongsTo(Category::class);
     }
 
     public function carts(): HasMany
     {
-        return $this->hasMany(Cart::class, 'product_id', 'product_id');
+        return $this->hasMany(Cart::class);
     }
 
     public function orderItems(): HasMany
     {
-        return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
+        return $this->hasMany(OrderItem::class);
     }
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class, 'product_id', 'product_id');
+        return $this->hasMany(Review::class);
     }
-
 
     public function scopeActive($query)
     {

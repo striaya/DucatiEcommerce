@@ -9,18 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $items = Cart::where('user_id', Auth::id())
-                        ->with('product.category')
-                        ->get();
+            ->with('product.category')
+            ->get();
 
         $grandTotal = $items->sum(fn($item) => $item->quantity * $item->product->price);
         return view('cart.index', compact('items', 'grandTotal'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
-            'product_id' => 'required|exists:products,products_id',
+            'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
@@ -38,21 +40,28 @@ class CartController extends Controller
         return back()->with('success', "{$product->name} ditambahkan di keranjang.");
     }
 
-    public function update(Request $request, int $cartId) {
+    public function update(Request $request, int $cartId)
+    {
         $request->validate(['quantity' => 'required|integer|min:1']);
 
-        $cart = Cart::whereRaw('user_id', Auth::id())->findOrFail($cartId);
-
+        $cart = Cart::where('user_id', Auth::id())->findOrFail($cartId);
         if ($cart->product->stock < $request->quantity) {
             return back()->with('error', "Stok tidak cukup. Tersis: {$cart->product->stock}.");
         }
 
         $cart->update(['quantity' => $request->quantity]);
 
-        return back()->with('error', "Stok tidak cukup. Tersisa: {$cart->product->stock}.");
+        return back()->with('success', 'Jumlah berhasil diperbarui.');
     }
 
-    public function clear() {
+    public function destroy(int $cartId)
+    {
+        Cart::where('user_id', Auth::id())->where('id', $cartId)->delete();
+        return back()->with('success', 'Item dihapus dari keranjang.');
+    }
+
+    public function clear()
+    {
         Cart::where('user_id', Auth::id())->delete();
         return back()->with('success', 'Keranjang dikosongkan.');
     }

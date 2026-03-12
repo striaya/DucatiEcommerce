@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    protected $primaryKey = 'category_id';
 
     protected $fillable = [
         'name',
@@ -24,7 +23,7 @@ class Category extends Model
 
     public function products(): HasMany
     {
-        return $this->hasMany(Product::class, 'category_id', 'category_id');
+        return $this->hasMany(Product::class);
     }
 
     public function scopeActive($query)

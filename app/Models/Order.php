@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
-    protected $primaryKey = 'order_id';
 
     protected $fillable = [
         'user_id',

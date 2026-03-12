@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InstallmentSchedule extends Model
 {
-    protected $primaryKey = 'schedule_id';
 
     protected $fillable = [
         'credit_id',

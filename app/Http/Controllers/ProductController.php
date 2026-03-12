@@ -44,10 +44,9 @@ class ProductController extends Controller
         $product  = Product::with(['category', 'reviews.user'])->findOrFail($id);
         $avgRating = round($product->reviews->avg('rating') ?? 0, 1);
         $related  = Product::active()
-                            ->where('category_id', $product->category_id)
-                            ->where('product_id', '!=', $id)
-                            ->limit(4)
-                            ->get();
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $id)->limit(4)
+            ->get();
 
         return view('products.show', compact('product', 'avgRating', 'related'));
     }

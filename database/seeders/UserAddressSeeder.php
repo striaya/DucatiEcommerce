@@ -12,10 +12,9 @@ class UserAddressSeeder extends Seeder
     {
         DB::table('user_addresses')->insert([
             [
-                'user_id'        => 2, 
+                'user_id'        => 2,
                 'label'          => 'Rumah',
                 'recipient_name' => 'Budi Santoso',
-                'phone'          => '081234567891',
                 'street'         => 'Jl. Sudirman No. 45, RT 003/RW 002, Kel. Karet',
                 'city'           => 'Jakarta Selatan',
                 'province'       => 'DKI Jakarta',
@@ -25,10 +24,9 @@ class UserAddressSeeder extends Seeder
                 'updated_at'     => Carbon::now(),
             ],
             [
-                'user_id'        => 2, 
+                'user_id'        => 2,
                 'label'          => 'Kantor',
                 'recipient_name' => 'Budi Santoso',
-                'phone'          => '081234567891',
                 'street'         => 'Jl. Gatot Subroto Kav. 51, Kel. Kuningan Timur',
                 'city'           => 'Jakarta Selatan',
                 'province'       => 'DKI Jakarta',
@@ -41,7 +39,6 @@ class UserAddressSeeder extends Seeder
                 'user_id'        => 3,
                 'label'          => 'Rumah',
                 'recipient_name' => 'Siti Rahayu',
-                'phone'          => '082345678901',
                 'street'         => 'Jl. Pemuda No. 12, RT 001/RW 003, Kel. Rawamangun',
                 'city'           => 'Jakarta Timur',
                 'province'       => 'DKI Jakarta',
@@ -51,10 +48,9 @@ class UserAddressSeeder extends Seeder
                 'updated_at'     => Carbon::now(),
             ],
             [
-                'user_id'        => 4, 
+                'user_id'        => 4,
                 'label'          => 'Rumah',
                 'recipient_name' => 'Rizky Pratama',
-                'phone'          => '083456789012',
                 'street'         => 'Jl. Diponegoro No. 88, Kel. Menteng',
                 'city'           => 'Jakarta Pusat',
                 'province'       => 'DKI Jakarta',
@@ -64,10 +60,9 @@ class UserAddressSeeder extends Seeder
                 'updated_at'     => Carbon::now(),
             ],
             [
-                'user_id'        => 5, 
+                'user_id'        => 5,
                 'label'          => 'Rumah',
                 'recipient_name' => 'Dewi Kusuma',
-                'phone'          => '084567890123',
                 'street'         => 'Jl. Veteran No. 33, RT 002/RW 005, Kel. Gambir',
                 'city'           => 'Jakarta Pusat',
                 'province'       => 'DKI Jakarta',

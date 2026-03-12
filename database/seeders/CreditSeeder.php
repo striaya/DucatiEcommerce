@@ -35,7 +35,7 @@ class CreditSeeder extends Seeder
             $paidAt  = $i <= 3 ? Carbon::now()->subDays(44)->addMonths($i)->addDays(2) : null;
 
             DB::table('installment_schedules')->insert([
-                'credit_application_id' => 1,
+                'credit_id' => 1,
                 'period_number'         => $i,
                 'due_date'              => $dueDate->toDateString(),
                 'amount_due'            => 22844444,
@@ -72,7 +72,7 @@ class CreditSeeder extends Seeder
             $paidAt  = $i === 1 ? Carbon::now()->subDays(14) : null;
 
             DB::table('installment_schedules')->insert([
-                'credit_application_id' => 2,
+                'credit_id' => 2,
                 'period_number'         => $i,
                 'due_date'              => $dueDate->toDateString(),
                 'amount_due'            => 31246667,
