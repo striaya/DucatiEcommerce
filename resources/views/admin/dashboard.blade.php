@@ -10,7 +10,6 @@
     </div>
 </div>
 
-{{-- STAT CARDS --}}
 <div class="stats-grid">
     <div class="stat-card" style="--accent: var(--blue)">
         <div class="stat-label">Total Users</div>
@@ -40,7 +39,6 @@
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
 
-    {{-- RECENT ORDERS --}}
     <div class="table-card">
         <div class="table-card-header">
             <div class="table-card-title">ORDER TERBARU</div>
@@ -85,7 +83,6 @@
         </table>
     </div>
 
-    {{-- PENDING CREDITS --}}
     <div class="table-card">
         <div class="table-card-header">
             <div class="table-card-title">KREDIT PENDING</div>
@@ -126,7 +123,6 @@
 
 </div>
 
-{{-- PRODUCT STOCK WARNING --}}
 @if($lowStockProducts->count() > 0)
 <div class="table-card" style="margin-top:24px">
     <div class="table-card-header">

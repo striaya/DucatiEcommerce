@@ -37,7 +37,6 @@
             display: flex;
         }
 
-        /* SIDEBAR */
         .sidebar {
             width: var(--sidebar-w);
             min-height: 100vh;
@@ -203,7 +202,6 @@
             flex-direction: column;
         }
 
-        /* TOP BAR */
         .topbar {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -242,13 +240,11 @@
 
         .topbar-link:hover { color: var(--text); }
 
-        /* PAGE CONTENT */
         .content {
             padding: 32px;
             flex: 1;
         }
 
-        /* PAGE HEADER */
         .page-header {
             margin-bottom: 28px;
             display: flex;
@@ -272,7 +268,6 @@
             line-height: 1;
         }
 
-        /* STAT CARDS */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -330,7 +325,6 @@
             color: var(--text);
         }
 
-        /* TABLE */
         .table-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -379,7 +373,6 @@
 
         tbody tr:hover { background: var(--surface2); }
 
-        /* BADGES */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -399,7 +392,6 @@
         .badge-gray   { background: rgba(136,136,136,0.12);color: #888; }
         .badge-orange { background: rgba(249,115,22,0.12); color: #f97316; }
 
-        /* BUTTONS */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -433,7 +425,6 @@
         .btn-success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #22c55e; }
         .btn-success:hover { background: #22c55e; color: white; }
 
-        /* FORM CONTROLS */
         .form-control {
             width: 100%;
             background: var(--surface2);
@@ -464,7 +455,6 @@
 
         .form-group { margin-bottom: 16px; }
 
-        /* FILTERS */
         .filter-bar {
             display: flex;
             gap: 12px;
@@ -478,7 +468,6 @@
             min-width: 140px;
         }
 
-        /* PAGINATION */
         .pagination-wrap {
             display: flex;
             align-items: center;
@@ -507,7 +496,6 @@
         .pagination-links a:hover { color: var(--text); border-color: var(--border); }
         .pagination-links span.active { color: var(--red); border-color: var(--red); }
 
-        /* FLASH */
         .flash {
             padding: 12px 20px;
             margin-bottom: 20px;
@@ -522,7 +510,6 @@
         .flash-success { background: rgba(34,197,94,0.1); border-left: 3px solid #22c55e; color: #22c55e; }
         .flash-error   { background: rgba(238,0,0,0.1);   border-left: 3px solid var(--red); color: #ff4444; }
 
-        /* DETAIL CARD */
         .detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -579,7 +566,6 @@
             text-align: right;
         }
 
-        /* EMPTY STATE */
         .empty-state {
             text-align: center;
             padding: 48px 24px;
@@ -589,7 +575,6 @@
         .empty-state i { font-size: 32px; margin-bottom: 12px; opacity: 0.3; }
         .empty-state p { font-family: 'Barlow Condensed'; letter-spacing: 1px; font-size: 13px; }
 
-        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border-bright); }
@@ -598,7 +583,6 @@
 </head>
 <body>
 
-{{-- SIDEBAR --}}
 <aside class="sidebar">
     <div class="sidebar-logo">
         <a href="/admin" class="brand">•<span>DUCATI</span></a>
@@ -648,7 +632,6 @@
     </div>
 </aside>
 
-{{-- MAIN --}}
 <div class="main">
     <div class="topbar">
         <div class="topbar-title">@yield('topbar-title', 'Dashboard')</div>

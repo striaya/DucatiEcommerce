@@ -25,7 +25,6 @@
 
 <div class="detail-grid">
     <div>
-        {{-- ORDER INFO --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-receipt"></i>INFORMASI ORDER</div>
             <div class="info-row">
@@ -56,7 +55,6 @@
             </div>
         </div>
 
-        {{-- ITEMS --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-motorcycle"></i>ITEM ORDER</div>
             @foreach($order->items as $item)
@@ -74,7 +72,6 @@
             @endforeach
         </div>
 
-        {{-- UPDATE STATUS --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-pen-to-square"></i>UPDATE STATUS</div>
             <form method="POST" action="/admin/orders/{{ $order->id }}/status" style="display:flex;gap:12px;align-items:flex-end">
@@ -95,7 +92,6 @@
     </div>
 
     <div>
-        {{-- CUSTOMER INFO --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-user"></i>DATA CUSTOMER</div>
             <div class="info-row">
@@ -117,7 +113,6 @@
             </div>
         </div>
 
-        {{-- ADDRESS --}}
         @if($order->address)
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-location-dot"></i>ALAMAT PENGIRIMAN</div>
@@ -132,7 +127,6 @@
         </div>
         @endif
 
-        {{-- PAYMENTS --}}
         @if($order->payments->count() > 0)
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-credit-card"></i>PEMBAYARAN</div>
@@ -156,7 +150,6 @@
         </div>
         @endif
 
-        {{-- CREDIT --}}
         @if($order->creditApplication)
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-landmark"></i>KREDIT</div>

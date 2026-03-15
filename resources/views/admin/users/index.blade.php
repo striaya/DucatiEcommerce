@@ -10,7 +10,6 @@
     </div>
 </div>
 
-{{-- FILTER --}}
 <form method="GET" action="/admin/users">
     <div class="filter-bar">
         <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama / email..." class="form-control" style="min-width:220px">
@@ -90,7 +89,6 @@
                 <td>
                     @if($user->role !== 'admin')
                     <div style="display:flex;gap:6px;align-items:center">
-                        {{-- KYC VERIFY --}}
                         @if($user->kyc_status !== 'verified')
                         <form method="POST" action="/admin/users/{{ $user->id }}/kyc" style="display:inline">
                             @csrf @method('PATCH')

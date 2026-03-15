@@ -11,7 +11,7 @@
         align-items: flex-end;
         justify-content: space-between;
         gap: 24px;
-    }
+    }   
     .products-hero-left .section-label { margin-bottom: 6px; }
     .products-count {
         font-family: 'Barlow Condensed', sans-serif;

@@ -25,7 +25,6 @@
 
 <div class="detail-grid">
     <div>
-        {{-- CREDIT INFO --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-landmark"></i>INFORMASI KREDIT</div>
             <div class="info-row">
@@ -78,7 +77,6 @@
             @endif
         </div>
 
-        {{-- DOKUMEN --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-file-lines"></i>DOKUMEN</div>
             <div class="info-row">
@@ -103,7 +101,6 @@
             </div>
         </div>
 
-        {{-- UPDATE STATUS --}}
         @if(in_array($credit->status, ['pending','approved']))
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-pen-to-square"></i>UPDATE STATUS</div>
@@ -133,7 +130,6 @@
     </div>
 
     <div>
-        {{-- CUSTOMER --}}
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-user"></i>DATA CUSTOMER</div>
             <div class="info-row">
@@ -155,7 +151,6 @@
             </div>
         </div>
 
-        {{-- ORDER --}}
         @if($credit->order)
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-receipt"></i>ORDER TERKAIT</div>
@@ -177,7 +172,6 @@
         </div>
         @endif
 
-        {{-- INSTALLMENT SCHEDULES --}}
         @if($credit->installmentSchedules->count() > 0)
         <div class="info-block">
             <div class="info-block-title"><i class="fa-solid fa-calendar-days"></i>JADWAL CICILAN</div>

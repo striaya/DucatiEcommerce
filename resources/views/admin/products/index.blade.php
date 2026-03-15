@@ -13,7 +13,6 @@
     </a>
 </div>
 
-{{-- FILTER --}}
 <form method="GET" action="/admin/products">
     <div class="filter-bar">
         <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama motor..." class="form-control" style="min-width:220px">
